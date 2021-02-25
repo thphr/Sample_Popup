@@ -2,6 +2,7 @@ package com.thph.popup_sample.impl;
 
 import java.util.Locale;
 
+import com.thph.popup_sample.impl.MyDaemonService;
 import com.ur.urcap.api.contribution.ViewAPIProvider;
 import com.ur.urcap.api.contribution.installation.ContributionConfiguration;
 import com.ur.urcap.api.contribution.installation.CreationContext;
@@ -11,34 +12,34 @@ import com.ur.urcap.api.domain.data.DataModel;
 
 public class PopupInstallationNodeService
 		implements SwingInstallationNodeService<PopupInstallationNodeContribution, PopupInstallationNodeView> {
+	
+	private final MyDaemonService myDaemonService;
 
-	public PopupInstallationNodeService() {
-		// TODO Auto-generated constructor stub
+	public PopupInstallationNodeService(MyDaemonService myDaemonService) {
+
+		this.myDaemonService = myDaemonService; 
+	
 	}
 
 	@Override
 	public void configureContribution(ContributionConfiguration configuration) {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public String getTitle(Locale locale) {
-		// TODO Auto-generated method stub
-		return "Popup sample";
+		return "Popup Daemon Service";
 	}
 
 	@Override
 	public PopupInstallationNodeView createView(ViewAPIProvider apiProvider) {
-		// TODO Auto-generated method stub
 		return new PopupInstallationNodeView(apiProvider);
 	}
 
 	@Override
 	public PopupInstallationNodeContribution createInstallationNode(InstallationAPIProvider apiProvider,
 			PopupInstallationNodeView view, DataModel model, CreationContext context) {
-		// TODO Auto-generated method stub
-		return new PopupInstallationNodeContribution(apiProvider, view, model, context);
+		return new PopupInstallationNodeContribution(apiProvider, view, model, context,this.myDaemonService);
 	}
 
 }
